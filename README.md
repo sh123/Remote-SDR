@@ -1,8 +1,13 @@
 # Remote-SDR
 ## Installation
 ```
+git clone https://github.com/sh123/Remote-SDR
+cd Remote-SDR
+sudo chmod 755 /etc/systemd/system/remsdr.service
+sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
-sudo get install nodejs
+sudo apt install nodejs
+cd /remsdr
 npm install
 npm install html
 npm install https
