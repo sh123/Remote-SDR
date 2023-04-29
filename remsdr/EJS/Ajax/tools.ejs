@@ -1,0 +1,90 @@
+<div style='width:100%;background-color: black;color:white;'>
+<%
+function ReadFile(F){
+	try {
+			var data = fs.readFileSync(F, 'utf8');			
+	} catch (err) {
+			console.error(err)
+	}
+	return data;
+}
+var cmd=url.trim().split("?");
+var sortie="";
+switch(cmd[1]) {
+	//code for files reading
+  case "temperature":
+    
+    var S=CPU.LastTemperature()
+	sortie=S.Temperature+" Fan :"+S.Fan_State;
+    break;
+  case "testpin26":
+		CPU.ToggleOscil_10s()
+		
+		break;
+  case "ChangesLog":
+    var adr_log='/remsdr/public/log/changes_log.log';
+	sortie+=ReadFile(adr_log);
+    break;
+  
+  default :
+    // code for Shell commands
+	switch(cmd[1]) {
+		case "USB":
+		var C="lsusb";
+		break;
+		case "HackRFinfo":
+		var C="sudo python3 /remsdr/PYtools/HackRF_info.py";
+		break;
+		case "HackRFSoapy":
+		var C='SoapySDRUtil --probe="driver=hackrf"';
+		break;
+		
+		case "RTLSDRinfo":
+		var C="sudo python3 /remsdr/PYtools/RTLSDRinfo.py";
+		break;
+		case "RTLSDRSoapy":
+		var C='SoapySDRUtil --probe="driver=rtlsdr"';
+		break;
+		case "SDRPLAYSoapy":
+		var C='SoapySDRUtil --probe="driver=sdrplay"';
+		break;
+		case "RebootOPI":
+		var C="sudo reboot";
+		break;
+		case "Shutdown":
+		var C="sudo halt";
+		break;
+		case "SA818test":
+		var C="sudo python3 /remsdr/PYtools/SA818test.py";
+		break;
+		case "RxGpredict":
+		var C="sudo python3 /remsdr/PYtools/Gpredict.py RX";
+		break;
+		case "TxGpredict":
+		var C="sudo python3 /remsdr/PYtools/Gpredict.py TX";
+		break;
+		case "OmniRigTest":
+		var C="sudo python3 /remsdr/PYtools/OmnirigTest.py";
+		break;
+		case "PlutoHelp":
+		console.log("pluro")
+		var C="sudo python3 /remsdr/PYtools/PlutoRead.py Help";
+		break;
+		case "PlutoReboot":
+		var C="sudo python3 /remsdr/PYtools/PlutoRead.py Reboot";
+		break;
+		case "PlutoSoapy":
+		var C='SoapySDRUtil --probe="driver=plutosdr"';
+		break;
+	}
+	var result = cp.execSync(C);
+	sortie=result.toString();
+}
+
+
+
+
+sortie = sortie.trim().replace(/\n/g, "<br>");
+ 
+ %><%-sortie %>
+</div>

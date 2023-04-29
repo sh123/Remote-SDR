@@ -1,0 +1,1163 @@
+* {
+    box-sizing: border-box;
+}
+body {
+	margin:0px;
+	padding: 0px;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    color:white;
+    background-color:black;
+	overflow:hidden;
+}
+a {
+	text-decoration: none;
+	color: grey;
+	background: none;
+}
+a:visited {
+	color: grey;
+}
+a:active {
+	color: grey;
+}
+a:hover {
+	text-decoration: underline;
+}
+.header {
+    background-color: #444;
+    color: white;
+    position: absolute;
+    width:100%;
+    top:0px;
+    z-index: 2000;    
+	height:5%;
+	text-align:center;
+	border: outset 3px grey;
+	display:flex;
+	align-items: center;
+	justify-content:space-between;
+}
+.titre{
+	font-size:100%;
+	font-weight: bold;
+	
+}
+.head1,.head2{
+	width:45%;
+	height:100%;
+	display:flex;
+	align-items: center;
+	justify-content:space-between;
+}
+.head_RXG,.head_Log,.head_TXG,#head_User{	    
+	height:80%;
+    z-index: 5000;    
+	border: outset 2px grey;
+	background-color: #88f;
+	font-size:100%;
+	line-height:120%;
+	overflow:hidden;
+	color:white;
+}
+#head_User:hover{
+	background-color: Coral;
+}
+
+.Head_RXon{
+	text-align:left;
+}
+.Head_TXon{
+	text-align:right;	
+}
+.Head_RXpilot{
+	border: outset 0px grey;
+	border-radius:2px;
+	padding:2px;
+}
+.Head_RXpilot:hover{
+	border-color:coral;
+}
+
+#RXonLed,#TXonLed,#RXpilotLed{
+	width:14px;
+	height:14px;
+	border:2px outset grey;
+	border-radius:7px;
+	background-color: grey;
+	display:inline-block;
+}
+#RXgpredict,#TXgpredict,#Omnirig{
+	font-size:50%;
+	border:2px outset grey;
+	border-radius:7px;
+	height:14px;
+	padding:1px;
+	background-color: lightgreen;
+	display:inline-block;
+	visibility: hidden;
+}
+
+.head_Log{
+	left:15%;
+}
+.head_Par{
+	left:auto;
+	right:115px;
+}
+.head_reload,.head_FS,.head_knob,#head_gui{
+	
+	height:80%;
+    z-index: 5000;    
+	border: outset 2px grey;
+	padding:4px;
+	width:30px;
+	background-color: #88f;	
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.head_reload{
+	background-image:url(/css/Image/reload.png);
+}
+.head_TUX{	
+	width:30px;
+	height:80%;
+	left:5px;
+    z-index: 5100; 
+    background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+	background-color:lightblue;
+}
+.head_FS{
+	background-image:url(/css/Image/Carre.png);
+	right:5px;
+	left:auto;
+}
+.head_knob{
+	background-image:url(/css/Image/bouton.png);
+	right:40px;
+	left:auto;
+}
+#head_gui{
+	background-image:url(/css/Image/gui3.png);
+	right:75px;
+	left:auto;
+	cursor:pointer;
+}
+#head_gui:hover{
+	background-color: Coral;
+}
+.main{
+	position: absolute;
+	top:5%;
+	width:100%;
+	overflow:hidden;
+	height:95%;
+}
+
+#fen_RX_main{
+	position: absolute;
+	top:0px;
+	left:30%;
+	width:35%;
+	background-color: black;
+	border:inset 3px Azure;
+	color:white;
+	height:40%;
+}
+#fen_TX_main{
+	position: absolute;
+	top:0px;
+	left:65%;
+	width:35%;
+	border:inset 3px Azure;
+	height:40%;
+}
+#fen_oscillo{
+	position: absolute;
+	left:0%;
+	top:0px;
+	width:30%;
+	height:40%;
+	z-index: 1000;
+	background-color: black;
+	overflow:hidden;
+	font-size:60%;
+}
+#Oscillo{
+	border:inset 3px Azure;
+	width:50%;
+	height:28%;
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	background-image: linear-gradient(#333,#666,black);
+}
+#Oscillo_Scope{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+#inOscillo{
+	color:aqua;
+	position: absolute;
+	top:2%;
+	left:0%;
+	width:50%;
+	z-index:1100;
+	text-align:center;
+}
+.spectreOscillo{
+	color:lightgreen;
+	position: absolute;
+	top:15%;
+	left:0%;	
+	z-index:1200;
+	width:50%;
+	text-align:center;
+}
+#Disp_Audio_Left,#Disp_Audio_Right{
+	border:inset 3px Azure;
+	width:50%;
+	height:28%;
+	position: absolute;
+	top:28%;
+	left:0px;
+	z-index:1050;
+	cursor:pointer;
+	overflow:hidden;
+}
+#Disp_Audio_Right{
+	left:50%;
+}
+.Audio_RX_fftT{
+	color:white;
+	position: absolute;
+	top:5%;
+	right:2%;
+	z-index:1080;
+}
+#zSpectre{
+	position:absolute;
+	top:0%;
+	left:50%;
+	width:50%;
+	height:28%;
+	border:inset 3px Azure;
+	background-image: linear-gradient(#333,#666,black);
+}
+.fen_O1{
+	position:absolute;
+	top:56%;
+	left:0%;
+	width:100%;
+	height:44%;
+	border:inset 3px Azure;
+}
+.fen_O2{
+	position:absolute;
+	top:0%;
+	left:75%;
+	width:25%;
+	height:100%;
+	overflow:hidden;
+}
+.fen_Iframe{
+	position:absolute;
+	top:0%;
+	left:0%;
+	width:75%;
+	height:100%;
+	border-right:solid 3px Azure;
+}
+#menu_Iframe{
+position:absolute;
+	top:0%;
+	left:0%;
+	width:100%;
+	text-align:center;
+	z-index:1100;
+}
+.onglet_If{
+	display:inline-block;
+	padding:1px;
+	border-left:solid 2px white;
+	border-top:solid 2px white;
+	border-right:solid 2px white;
+	border-radius:4px;
+	margin:2px;
+	font-size:12px;
+	height:17px;
+	overflow:hidden;
+}
+#In_Iframe{
+	position:absolute;
+	top:0%;
+	bottom:0%;
+	left:0%;
+	width:100%;
+	border-top:solid 2px white;
+	z-index:1000;
+}
+#BandPlan,#Iframe{
+	position:absolute;
+	top:0%;
+	left:0%;
+	width:100%;
+	height:100%;
+	font-size:140%;
+}
+#ListeF{
+	cursor:pointer;
+	position:absolute;
+	top:0%;
+	left:0%;
+	width:100%;
+	overflow:hidden;
+	bottom:22px;
+	overflow-y: auto;
+}
+#SaisieF{
+	position:absolute;
+	height:22px;
+	left:0%;
+	width:100%;
+	bottom:0px;
+	background-color: #223;
+	overflow:hidden;
+}
+#Fsaisie{
+	position:absolute;
+	top:0px;
+	left:0%;
+}
+#SaisieF input{
+	position:absolute;
+	top:0px;
+	left:90px;
+	right:16%;
+}
+.Ssaisie{
+	position:absolute;
+	top:0px;
+	left:85%;
+	background-color: #668;  
+	border: outset 2px grey;
+	text-align:center;
+	right:0%;
+}
+.DSaisie{
+		width:20px;
+		display:inline-block;
+		margin-left:4px;
+}
+#visus{
+	position: absolute;
+	top:40%;
+	width:100%;
+	overflow:hidden;
+	height:60%;
+	z-index:500;
+}
+#spectre{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:40%;
+	border:inset 15px #aaa;
+	overflow:hidden;
+	z-index:1200;
+	background-image: linear-gradient(#222,#444,#666,black);
+}
+#mySpectre{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:1000;
+}
+#EchSpectre{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:1000;
+}
+#Scan_Zone{
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height:8%;
+	z-index:1260;
+}
+.Scan_area{
+	position: absolute;
+	top:0px;
+	height:100%;
+	border-left:solid green 2px;
+	border-right:solid green 2px;
+	border-top:solid green 2px;
+	cursor:pointer;
+}
+#paraSpectre,#paraWater{
+	position: absolute;
+	top:1000px;
+	left:0px;
+	width:30%;	
+    background: #aaa;
+	z-index:1300;
+	border: ridge 5px #777;
+	border-radius: 10px;
+	padding:20px;
+	opacity:0.7;
+	overflow:hidden;
+}
+.parafleche{
+	position: absolute;
+	top:0;
+	left:0;
+    border:2px outset grey;	
+	border-radius: 2px;
+	background-color: #88f;
+	padding:2px;
+	color:white;
+}
+#echelle{
+	position: absolute;;
+	top:40%;
+	left:0px;
+	width:100%;
+	height:10%;
+	background-color: #445;
+	border:solid 15px #445;
+	color:#fff;
+	z-index:1100;
+}
+#echelle_track{
+	position: absolute;
+	top:48%;
+	left:0px;
+	width:100%;
+	height:2%;	
+	z-index:1110;
+}
+#echelle_track div{
+	position: absolute;
+	top:0px;
+	width:14px;
+	z-index:1120;
+	margin-left:-7px;
+	color:DarkOrange;
+	text-align:center;
+}
+#echelle_Label{
+	position: absolute;
+	top:48%;
+	left:0px;
+	width:100%;
+	height:2%;	
+	z-index:1120;
+}
+#echelle_Label div{
+	position: absolute;
+	top:0%;
+	font-size:50%;
+	color:#AAF;
+	border-left:2px solid #AAF;
+	padding-left:1px;
+	margin-left:-1px;
+}
+#waterfall{
+	position: absolute;;
+	top:50%;
+	left:0px;
+	width:100%;
+	height:50%;
+	overflow:hidden;
+	border:inset 15px #888;
+    z-index:1010;
+}
+#waterfall_in{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:1020;
+}
+.myWaterfall{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:1050;
+}
+#f1atb{
+	position: absolute;
+	bottom:10px;
+	left:10px;
+	font-size:50%;
+	text-align:center;
+	color:grey;
+	z-index:4000;
+}
+#curseur{
+	position:absolute;
+	top:0px;
+	height:100%;
+	left:50%;
+	width:20px;
+	cursor: e-resize;	
+	z-index:3000;
+	background-color: rgba(100,100,100,0.1);
+}
+.ligne{
+	position:absolute;
+	top:0px;
+	height:100%;
+	left:10px;
+	width:2px;
+	border-left:1px red solid;
+}
+#curseur_w{
+	position:absolute;
+	top:40%;
+	height:3px;
+	left:0px;
+	width:100%;
+	background-color: #0a0;
+}
+#Curseur_TX{
+	position:absolute;
+	top:0px;
+	height:100%;
+	left:10px;
+	width:1px;
+	border-left:1px LightSalmon dashed;
+	z-index:3050;
+}
+.Zone_Fr{
+	position:relative;
+	border-bottom:3px solid Azure;	
+	height:56%;
+	text-align:center;
+}
+.Zone_Fr1{
+	height:22%;
+	font-size:60%;
+	width:100%;
+}
+.mode{
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
+	width:100%;
+}
+.mode div{
+	text-align:center;
+	flex-grow:1;
+}
+.Z_Fr2{
+	height:28%;
+	margin-top:1%;
+	font-size:80%;
+}
+.Z_Fr3{
+	height:23%;
+	font-size:80%;
+}
+.Zone_Au{
+	position:relative;
+	height:44%;
+}
+.Zone_Au1{
+	width:30%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.Zone_Au2{
+	width:70%;
+	text-align:center;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:30%;
+	padding:2%;
+}
+.Zone_Au3{
+	width:49%;
+	display:inline-block;
+}
+.Zone_Au4{
+	width:49%;
+	display:inline-block;
+}
+.Zone_Au5{
+	margin-top:2%;
+}
+#Scan{
+	position:absolute;
+	top:10px;
+	right:1%;
+	width:9%;
+	text-align:center;
+	cursor:pointer;
+	color:black;
+	font-size:50%;
+	height:20px;
+}
+#Scan:hover{
+	border-color:coral;
+}
+.clearRX5,.clearRX10{
+	position:absolute;
+	top:10px;
+	right:11%;
+	background-color: #668; 
+	border: outset 2px grey;
+    font-size:50%;
+	line-height:16px;
+	height:20px;
+	width:6%	
+}
+.clearRX5{
+	right:17%;
+
+}
+#start-audio{
+	position:absolute;
+	top:10%;
+	left:10%;
+	height:80%;
+	width:80%;
+	Font-size:140%;
+	font-weight:bold;
+	cursor:pointer;
+	text-align:center;
+	text-shadow:0px 0px 3px white;
+}
+.bt_on{
+	background-image:radial-gradient(pink,red);
+}
+.bt_off{
+	background-image:radial-gradient(lightgrey, SteelBlue);
+}
+#start-audio:hover{
+	border-color:coral;
+}
+#Frequence_AudioRX{
+	width:100%;
+	text-align:center;
+	font-size:160%;
+	height:20%;	
+}
+#Frequence_AudioRX div{
+	display:inline-block;
+	cursor:	ns-resize;
+}
+#FRX0,#FRX1,#FRX2,#FRX3{
+	font-size:60%;
+}
+#FRX0,#FRX3,#FRX6,#FRX9{
+	padding-left:4px;
+}
+.disp_flex{
+	display:flex;
+}
+.flex_l{
+	flex:auto;
+	text-align:left;
+}
+.flex_c{
+	flex:auto;
+	text-align:center;
+}
+.flex_r{
+	flex:auto;
+	text-align:right;
+}
+.tc15{
+	display:inline-block;
+	width:14%;
+	margin:0.1%;
+}
+.tc20{
+	display:inline-block;
+	width:19%;
+	margin:0.1%;
+}
+.tc25{
+	display:inline-block;
+	width:24%;
+	margin:0.1%;
+}
+.tc33{
+	display:inline-block;
+	width:32%;
+	margin:0.1%;
+}
+.tc40{
+	display:inline-block;
+	width:39%;
+	margin:0.1%;
+}
+.tc50{
+	display:inline-block;
+	width:49%;
+	margin:0.1%;
+}
+.tc60{
+	display:inline-block;
+	width:59%;
+	margin:0.1%;
+}
+.tc70{
+	display:inline-block;
+	width:69%;
+	margin:0.1%;
+}
+.tc75{
+	display:inline-block;
+	width:74%;
+	margin:0.1%;
+}
+.tc100{
+	width:100%;
+	padding:0%;
+}
+.cell50{
+	display:table-cell;	
+}
+.cell30{
+	display:table-cell;	
+}
+.cell20{
+	display:table-cell;	
+}
+.fs80{
+	font-size:80%;
+}
+.fs60{
+	font-size:60%;
+}
+#BandeRX{
+	flex-grow:2;
+}
+#BandeRX div{
+	text-align:right;	
+}
+#bandSelectRX,#digiSelectRX{
+	width:45%;
+	margin-right:3%;
+	margin-top:2px;
+	margin-left:2px;
+}
+#ArrowRXequalizer{
+	position:absolute;
+	top:2px;
+	right:0px;
+	width:auto;
+	border: outset 2px grey;
+	background-color: #88f;
+	font-weight:bolder;
+	font-size:80%;
+}
+#ArrowRXequalizer:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+#Zone_AuEqualizer{
+	position:absolute;
+	top:100%;
+	left:3px;
+	width:100%;
+	display:none;
+	background-color: black;
+	border-left:inset 3px Azure;
+	border-bottom:inset 3px Azure;
+	border-right:inset 3px Azure;
+	font-size:60%;
+	z-index:11500;
+}
+.bordazur{
+	margin:4px;
+	margin-top:10px;
+	border:solid 1px Azure;
+	text-align:center;
+	position:relative;
+}
+.bordazur_T{
+	position:absolute;
+	top:-10px;
+	left:12px;
+	background-color: black;
+	padding:1px;
+}
+.aux_para{
+	margin-top:4px;
+	vertical-align:top;
+}
+.aux_Title{
+	display:inline-block;
+	width:28%;
+	margin:0.1%;
+	text-align:right;
+}
+#fen_squelch{
+	position:absolute;
+	top:100%;
+	left:50%;
+	z-index:12000;
+	background-color: #668;
+	border:inset 3px #aac;
+	text-align:center;
+	width:45%;
+	display:none;
+	padding:2px;
+}
+.Auto_Offset div{
+		display:inline-block;
+		font-size:60%;	
+}
+#F_Offset_locked{
+	width:14px;
+	height:14px;
+	border:2px outset grey;
+	border-radius:7px;
+	background-color: grey;
+	margin-left:5px;
+	display:inline-block;
+}
+#F_df{
+	width:40px;
+	display:inline-block;
+	text-align:right;
+	font-size:80%;
+}
+#offset div,#Xtal_Error div,#SDR_Freq div{
+	display:inline-block;
+}
+#Xtal_Error{
+	cursor:	ns-resize;
+}
+#OFS0,#OFS3,#OFS6,#OFS9,#DOF0,#DOF3,#DOF6,#DOF9,#SFr0,#SFr3,#SFr6,#SFr9{
+	padding-left:4px;
+}
+#Smetre{
+	position:absolute;
+	top:0%;
+	left:0%;
+	height:100%;
+	width: 100%;
+	z-index:4000;
+	font-size:100%;
+	background-color:black;
+	overflow:hidden;
+	cursor:pointer;
+}
+#Smetre_fond{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:4000;
+	
+}
+#Smetre_label{
+	position:absolute;
+	width:100%;
+	height:100%;
+	font-size:40%;
+}
+#Smetre_label div{
+	position:absolute;
+	margin-top:0px;
+	margin-left:0px;
+	transform-origin: center;
+	width:30px;
+	height:20px;
+	margin-top:-10px;
+	margin-left:-15px;
+	text-align:center;
+}
+#SM_fleche{
+	position:absolute;
+	width:3px;
+	left:50%;
+	margin-left:-1px;
+	height:100%;
+	bottom:0px;
+	background-color: #aaf;
+}
+#Smetre_RC{
+	position:absolute;
+	bottom:0px;
+	width:50px;
+	text-align:center;
+	font-size:100%;
+	background-color: #333;
+	border-radius:15px;
+	padding:2px;
+	left:50%;
+	margin-left:-25px;
+	z-index:4100;
+}
+.SM_noise{
+	position:absolute;
+	bottom:30px;
+	width:100%;
+	text-align:center;
+	font-size:40%;
+	color:grey;
+}
+#fen_GainsRX,#fen_Log,#fen_User,#fen_GainsTX{
+	position: absolute;
+	top:0%;
+	left:5%;
+	min-width:290px;
+	overflow:hidden;
+	background-color: #000;
+	border:inset 10px #aac;
+	text-align:center;
+	color:white;
+	z-index:10000;
+	display:none;
+}
+#fen_GainsRX div ,#fen_Log div,#fen_User div,#fen_GainsTX div {
+	margin:6px;
+}
+#in_fen_log{
+	font-size:60%;
+	text-align:left;
+}
+#fen_GainsTX{
+	left:auto;
+	right:17%;
+	display:none;
+}
+#list_user{
+	font-size:50%;
+}
+#list_user table{
+	margin:auto;
+}
+#fen_Log{
+	left:auto;
+	right:10%;
+}
+.log_table{
+	text-align:left;
+	width:100%;
+}
+.log_table div{
+	width:14px;
+	height:14px;
+	border:2px outset grey;
+	border-radius:7px;
+	background-color: grey;
+}
+#fen_User{	
+	left:11%;
+}
+
+
+.titre_fen{
+	font-size:70%;
+	font-weight: bold;
+	margin:0px;
+	background-color: #77a;
+	padding:2px;
+}
+.close_fen{
+	margin:0px;
+	font-size:70%;
+	font-weight: bold;
+	position:absolute;
+	top:-6px;
+	right:0px;
+	border:solid 2px grey;
+	background-color: #77a;
+}
+.close_fen:hover,.hover:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+.ui-slider{
+	margin:4px;
+}
+.TX_RX div:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+#zoom_freq{
+	position:absolute;
+	top:0px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	text-align:center;
+	font-size:160%;
+	background-color: #003; 
+	border: inset 3px grey;
+	padding:2px;
+    display:none;
+	z-index:110000;
+}
+#zoom_freq div{
+	margin:4px;
+}
+#zoom_freq_in div{
+	display:inline-block;
+	cursor:	ns-resize;
+}
+#ZFr0,#ZFr1,#ZFr2,#ZFr3{
+	font-size:100%;
+}
+#ZFr0,#ZFr3,#ZFr6,#ZFr9{
+	padding-left:8px;
+}
+select{
+	background-color: #668;
+	border:inset 2px #aac;
+	text-align:left;
+	color:white;
+	font-size:80%;
+	text-align:right;
+}
+select:hover,input:hover{
+	border-color: coral;
+	cursor:pointer;
+}
+.ui-state-hover:hover{
+	background:coral;
+}
+#RX_loader,#TX_loader,#RX_GPIO,#TX_GPIO{
+	display:none;
+}
+ /* For small screen */
+@media  screen and ( max-width: 1200px ), screen and (max-height: 600px) {
+	body {
+		overflow:visible;
+	}
+	.header {
+		height:90px;
+		flex-direction: column;
+	}
+	.titre{
+		height:30px;
+		width:100%;
+		line-height:120%;
+		font-size:120%;
+	}
+	.head1,.head2{
+		height:30px;
+		width:100%;
+		font-size:80%;
+	}
+	.head2{
+		flex-direction: row-reverse;
+	}
+	.head_RXG{	
+		
+		
+	}
+	.Head_RXon{
+		
+	
+	}
+	#RXgpredict,#TXgpredict,#Omnirig{
+		display:none;
+	}
+	.Head_TXon{
+		
+	}
+	#fen_GainsTX{
+		
+		
+	}
+	.head_Log{
+		
+		
+	}
+	.head_User{
+		
+		
+	}
+	.head_reload,.head_FS,.head_knob,#head_gui{
+		
+	}
+	.head_reload{
+		
+	}
+	.head_TUX{
+		
+	}
+	
+		
+	.main{
+		position: absolute;
+		top:90px;
+		overflow:visible;
+	}
+	
+	#fen_oscillo{
+		top:1100px;
+		width:100%;
+		height:200px;
+	}
+	#fen_RX_main{
+		top:0px;
+		left:0%;
+		width:100%;
+		height:400px;
+	}
+	#fen_TX_main{
+		top:700px;
+		left:0%;
+		width:100%;
+		height:400px;
+	}
+	#visus{
+		position:absolute;
+		top:400px;
+		height:300px;	
+	}
+	#paraSpectre,#paraWater{
+		width:60%;	
+	}
+	.Zone_Au1{
+		width:100%;
+		height:20%;
+	}
+	.Zone_Au2{
+		width:100%;
+		height:80%;
+		top:20%;
+		left:0%;
+	}
+	#zoom_freq{
+		position:fixed;
+		top:0px;
+		left:0px;
+		margin-left:0px;
+		width:100%;
+	}
+	#Frequence_AudioRX{
+		padding-top:10px;
+	}
+	#start-audio{
+		width:80%;	
+	}
+}	

@@ -1,0 +1,108 @@
+***************
+* REMOTE SDR  *
+* Changes Log *
+***************
+Version 5.02 (June 2022)
+***********
+- Change of Sampling Frequency to 900kHz for Orange Pi and Adalm-Pluto SDR configuration, to reduce processing load.
+Version 5.01 (May 2022)
+***********
+- Bug correction on RTTY page
+- Misspelling on RemoteSDR page
+- Micro gain change
+Version 5.0 (May 2022)
+***********
+- Interface to SDR RSP1 or RSP1A to cover HF frequencies (instead of RTL-SDR V3).
+- GNU Radio in version 3.9 for the signal processing.
+- https server to simplify microphone access.
+- Apache Server replace by Node js.
+- All communications via https port 443 (except for Gpredict and Omnirig).
+- Possibility to share the receiver between different Users.
+- Suppression of files configuratioRX.js and configurationTX.js .
+- New "Settings" page to set the fixed parameters.
+- Tool to upgrade Remote SDR online.
+
+Version 4.5 (March 2022)
+***********
+- RTL-SDR V3 frequency coverage below 28MHz
+- RTTY decoder and encoder
+- Option to select a simplified GUI (graphic User Interface) to reduce internet browser workload
+
+Version 4.4 (January 2022)
+***********
+- IP ports selection to use Remote SDR via a NAT (Network Address Translation)
+- Update to control Remote SDR from MMSSTV serial link interface.
+- Adaptive RX audio buffer size according to the quality of the Internet link.
+- Waterfall on RX audio spectrum
+
+Version 4.3 (January 2022)
+***********
+- RX Audio. Second output filtered or not to connect an external software via a VB cable for example
+- TX Audio. Possibility to select microphone or external input via VB cable for example
+- Omnirig Interface to drive the frequency and the transmit order from an external software (ex MMSSTV, WSJT-X..)
+
+Version 4.2 (December 2021)
+***********
+- Remove ScriptProcessorNode in RX and TX Audio which is deprecated and replaced by AudioWorkletNode.
+- Introduce CTCSS oscillator based on a Oscillator Node.
+- Equalizer for the TX microphone.
+- Equalizer, Notch filter and Noise filter for the RX Audio.
+- Direct RX audio, without filtering, from demodulation to the output to speaker or virtual cable.
+- Reduction around 100ms of RX latency.
+- Page layout modifications
+- Possibility to display external pages in an iframe. To be defined in configurationRX.js page
+- Example: GS 232 rotator control in an iframe
+- Spectrum and Waterfall color selection
+- Spatial filter on spectrum and waterfall to adjust the noise level on the whole band
+- Push button to align TX frequency on RX frequency by adjusting the TX frequency correction in SSB
+
+Version 4.1 (November 2021)
+***********
+- Changes log (this file) creation
+- Publish in the browser console when start TX audio stream (TX START Transmit) or stop TX audio stream (TX STOP Transmit)
+- Publish in the browser console when RX GPIO and TX GPIO are set
+- RemoteKey.js creation to manage USB serial interfaces
+- Rotating knob on USB
+- Transmit pushbutton on USB
+- CW keyer on USB mode: simple paddle, bug, iambic A or iambic B.
+- CW Signal processing (GNU-RADIO) for pluto and hackrf
+- Bug correction frequency steps in NBFM and WBFM
+- Parameter in the configuration files to invert LSB and USB on the RX and/or TX
+
+Version 4.0 (November 2021)
+***********
+- Raspberry OS - Bullseye for the Raspberry 4B image
+- NBFM transmission with VHF and UHF module SA818 (for Orange Pi Zero2 only)
+- Modifications on GPIO management to drive  SA818
+- 1750 Hz signal generator
+- Signal processing stops when no web client connected
+- If CPU temperature exceeds 65°C pin 7 (Opiz2 and Rpi4) or pin 12 (Opi One+) set to 1
+
+Version 3.2 (October 2021)
+***********
+- Fix bugs for HackRF and RTL-SDR running with Orange Pi Zero 2
+- Band automatic scanning
+
+Version 3.1 (September 2021)
+***********
+- Radio processing SSB, NBFM, WBFM, AM grouped in one set to allow rapid switching between modulations
+- Interface to Gpredict to compensate Doppler
+
+Version 3.0 (September 2021)
+***********
+- Armbian Bullseye for Orange Pi
+- Raspbian upgrade to Bullseye
+- GNU-RADIO 3.8 for radio processing
+
+Version 2.0 (May 2021)
+***********
+- Adalm-Pluto processing
+- New demodulations NBFM, WBFM and AM
+- CTSS encoder
+- DTMF encoder
+- Programmable frequency shift for relays
+
+
+Version 1.0 (May 2020)
+***********
+- First release to drive a transceiver with 2 HackRF One dedicated to QO-100

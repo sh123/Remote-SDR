@@ -1,0 +1,46 @@
+
+#display {
+    background-color: black;
+    width: 97%;
+    margin: 1%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#azimuth,#elevation {
+    color: #ffffff;
+    padding: 1%;
+    font-family: courier;
+    font-weight: bold;
+	width:50%;
+	text-align:center;
+	display:inline-block;
+}
+.line{
+		width:100%;
+		text-align:center;
+}
+.line button{
+		width:25%;
+}
+#azimuth_value {
+    margin: 5px 1px 1px 1px;
+    background-color: darkgrey;
+    border-radius: 5px;
+}
+
+#elevation_value {
+    margin: 5px 1px 1px 1px;
+    background-color: darkgrey;
+    border-radius: 5px;
+}
+
+#goBtn {
+    width:20% !important;
+}
+#goBtn1 {
+    width:20% !important;
+}
+.author{
+	font-size:10px;
+}

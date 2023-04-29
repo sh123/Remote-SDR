@@ -1,0 +1,210 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+	margin:0px;
+	padding: 0px;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    color:black;
+    background-color:white;
+}
+a {
+	text-decoration: none;
+	color: black;
+	background: none;
+}
+a:visited {
+	color: black;
+}
+a:active {
+	color: grey;
+}
+a:hover {
+	text-decoration: underline;
+}
+.header {
+    background-color: #444;
+    color: white;
+    position: absolute;
+    width:100%;
+    top:0px;
+    z-index: 2000;    
+	height:5%;
+	text-align:center;
+	overflow:hidden;
+	border: outset 3px grey;
+}
+.titre{
+	font-size:150%;
+	font-weight: bold;
+	position:absolute;
+	bottom:10%;
+	width:100%;
+}
+
+
+
+
+.head_FS{
+	position: absolute;
+    bottom:10%;
+	height:30px;
+	right:3px;;
+    z-index: 5000;    
+	border: outset 2px grey;
+	padding:4px;
+	width:30px;
+	background-color: #88f;
+	background-image:url(/css/Image/Carre.png);
+	background-size: contain;	
+}
+
+.head_TUX{
+	position: absolute;
+    bottom:5%;
+	width:7%;
+	height:95%;
+	left:3px;
+    z-index: 5100; 
+    background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+	background-color:lightgrey;
+}
+
+
+
+.main{
+	position: absolute;
+	top:5%;
+	width:100%;
+	
+}
+
+.curseur{
+	cursor:pointer;
+}
+
+.coral:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+.ligne_pseudo{
+	display:flex;
+	justify-content: center;	
+}
+.ligne_pseudo div{
+	margin:4px;
+}
+button{
+	background-color:grey;
+	border:2px outset lightblue;
+	text-align:center;
+	background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+	color:white;
+	display:inline-block;
+	margin-left:2px;
+}
+button:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+
+#zone_RX,#zone_TX,#zone_RXTX,#fen_Log,.ligne_access{
+	max-width:1000px;
+	margin:auto;
+	margin-top:10px;
+	padding:2px;
+	border:1px solid green;	
+} 
+#zone_TX{
+	border:1px solid orange;	
+}
+#zone_RXTX{
+	border:1px solid blue;	
+}
+#zone_RXTX div{
+	display:flex;
+	justify-content:space-around;	
+}
+#fen_Log{
+	border:1px solid grey;	
+}
+
+.ligne_access{
+	border:1px solid blue;	
+	text-align:center;
+	font-weight:bold;
+}
+.ligne_access span{
+	left-margin:10px;
+}
+.tab_tit{
+	text-align:center;
+	white-space: pre-wrap;
+}
+.tab_col{
+		font-weight:bold;
+}
+.tab_col,.tab_ligne0,.tab_ligne1,.tab_tit{
+	margin-top:2px;
+	padding:2px;
+	width:100%;
+	
+}
+.tab_ligne0{
+		background-color:#aaf;
+}
+.tab_ligne1{
+		background-color:#ccf;
+}
+.th,.td{
+	display:inline-block;
+	text-align:right;
+	margin-left:2px;
+}
+.left{
+		text-align:left;
+}
+.ButtonRight{
+		text-align:right;
+		display:none;
+}
+.infAccess{
+	font-size:10px;
+	font-style: italic;
+	margin:2px;
+}
+h4,h2 {
+	text-align:center;
+}
+.LesIP{
+	max-width:1000px;
+	margin:auto;
+	padding:2px;
+	border:1px solid grey;
+}
+.LesIP2{
+	display:flex;
+	justify-content:space-around;
+}
+.inIP {
+	font-weight:bold;
+	text-align:left;
+	display:block;
+}
+.LesIP span{
+	margin-left:10px;
+}
+.SDRlist span{
+	margin-left:10px;
+}
+
+
+

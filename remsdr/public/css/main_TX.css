@@ -1,0 +1,380 @@
+.para_TX{
+	position:absolute;
+	top:0%;
+	height:56%;
+	width:100%;
+	text-align:center;
+	border-bottom:3px solid azure;
+	overflow:hidden;
+}
+#echelleTX{
+	border:outset 3px #033;
+	width:100%;
+	height:20%;
+	background-color: #666;
+	position:absolute;
+	top:20%;
+}
+#curseurTX{
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin-left:-1px;
+	width:2px;
+	height:100%;
+	background-color: LightSalmon;
+}
+#TXFSDR{
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	font-size:50%;
+}
+#TXfreqSDR{
+	display:inline-block;
+}
+#TXfreqSDR div{
+	display:inline-block;
+}
+#SDT0,#SDT3,#SDT6,#SDT9{
+	padding-left:4px;
+}
+#sliderFrTX{
+	width:100%;
+}
+
+#fleche_GTX{
+	
+	font-weight: bolder;
+}
+
+.Titre_Freq{
+	position:absolute;
+	top:7px;
+	left:5%;
+	font-size:100%;
+	font-weight: bold;
+}
+#val_Fr_TX{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	text-align:center;
+	font-size:160%;
+    height:20%;	
+}
+#val_Fr_TX div{
+	display:inline-block;
+	cursor:	ns-resize;
+}
+#FRT0,#FRT1,#FRT2,#FRT3{
+	font-size:60%;
+}
+#FRT0,#FRT3,#FRT6,#FRT9{
+	padding-left:4px;
+}
+#val_Of_TX div{
+	cursor:	ns-resize;
+	display:inline-block;
+}
+#OFT0,#OFT1,#OFT2,#OFT3{
+	font-size:80%;
+}
+#OFT0,#OFT3,#OFT6,#OFT9{
+	padding-left:4px;
+}
+#TX_RX{
+	position:absolute;
+	top:10px;
+	right:1%;
+	width:30%;
+	text-align:right;
+}
+#TX_RX div{
+	display:inline-block;
+	background-color: #668;   
+	border: outset 2px grey;
+	font-size:50%;
+	line-height:16px;
+	height:20px;
+	width:40%;
+	margin-left:5%;
+	text-align:center;
+}
+#Env_Fr_TX{
+	position:absolute;
+	display:flex;
+	flex-direction: column;
+	justify-content: space-between;
+	top:40%;
+	left:0px;
+	width:100%;
+	height:60%;
+}
+.Env_FrTX{
+	display:flex;
+	left:0px;
+	width:100%;
+	margin:2px;
+}
+.Env_FrTX label{
+	vertical-align:top;
+}
+#AutoCorect{
+	background-color: #668; 
+	border: outset 2px grey;
+	padding:2px;
+    font-size:50%;
+}
+#AutoCorect:hover{
+	background-color:coral
+}
+#visus_TX{
+	width:100%;
+	padding:0px;
+	margin:0px;
+	height:30%;
+	border-top:3px solid azure;
+	background-image: linear-gradient(#333,#666,black);
+}
+
+#visus_TXt,#visus_TXf{
+	width:49%;
+	padding:0px;
+	margin:0px;
+	display:inline-block;
+	overflow:hidden;
+}
+#visus_TXt{
+	border-right:1px solid azure;
+}
+
+.para_TX_Audio{
+	position:absolute;
+	top:56%;
+	width:100%;
+	height:44%;
+	color:white;
+	text-align:center;
+	padding:0px;
+	margin:0px;
+}
+.para_TX_1{
+	position:absolute;
+	width:30%;
+	height:100%;
+	top:0px;
+	left:0px;
+	
+}
+#para_Micro{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height:100%;
+}
+
+#para_TX_SSB_FM,#para_TX_CW{
+	position:absolute;
+	height:100%;
+	width:70%;
+	top:0px;
+	left:30%;
+	padding:2px;
+	z-index:600;
+}
+#para_TX_CW_2,#para_TX_SSB_FM2{
+	position:absolute;
+	top:100%;
+	left:3px;
+	width:100%;
+	display:none;
+	background-color: black;
+	border-left:inset 3px Azure;
+	border-bottom:inset 3px Azure;
+	border-right:inset 3px Azure;
+	font-size:60%;
+}
+#ArrowAudioF{
+	position:absolute;
+	top:2px;
+	right:0px;
+	z-index:11000;
+}
+#ArrowCW,#ArrowAudioF{
+	border: outset 2px grey;
+	background-color: #88f;
+	font-weight:bolder;
+	font-size:80%;
+}
+#ArrowCW:hover,#ArrowAudioF:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+#canvasEqualizerTX,#canvasEqualizerRX{
+	    position:relative;
+		background-image: linear-gradient(black,#666,black);
+		width:100%;
+}
+.equalcanTX,.equalcanRX{
+	    position:absolute;
+		top:0px;
+		left:2px;
+}
+
+.TX_Audio_Sliders,.RX_Audio_Sliders{
+	display:inline-block;
+    width:24%;
+	padding:2px;
+}
+.TX_Audio_Sliders div:first-child,.RX_Audio_Sliders div:first-child{
+	margin-left:45%;
+}
+#CWkey{
+	background-color: #f00;
+	font-size:60%;
+	border:2px outset grey;
+	padding:1px;
+}
+#slider_CW_audio_level,#slider_CW_pitch{
+	width:90%;
+	left:5%;
+}
+#para_TX_CW button{
+	width:22%;
+	margin-left:1%;
+	margin-right:1%;
+	overflow:hidden;
+}
+#can_CW{
+	width:100%;
+	height:19px; 
+	border:2px inset Azure;
+}
+#MemCW1,#MemCW2{
+	width:100%;
+	height:40px; 
+	border:2px inset Azure;
+}
+
+
+.reglages_TX_inf div{
+	display:inline-block;
+	margin-top:2px;
+	margin-bottom:1px;
+}
+#start-audioTX{
+	background-color: #aab;
+	width:80%;
+	height:80%;
+	font-size:140%;
+	font-weight:bold;
+	top:10%;
+	left:10%;
+	position:absolute;
+	cursor:pointer;
+	text-shadow:0px 0px 3px white;
+}
+#start-audioTX:hover{
+	border-color:coral;
+}
+.TX_local{
+		margin-top:1%;
+}
+#Relays_info{
+	position:absolute;
+	bottom:25px;
+	right:0px;
+	z-index:11000;
+	background-color: #668;
+	border:inset 3px #aac;
+	
+	text-align:left;
+	display:none;
+	
+}
+#Relays_info div{
+	white-space: nowrap;
+	padding:2px;
+}
+.dtmf_b{
+	width:30px;
+	height:30px;
+	border:2px outset grey;
+}
+
+.Hz1750{
+	border:2px outset grey;
+	background-color: #668;
+	font-size:50%;
+	width:30px;
+	height:15px;
+	text-align:center;
+	padding:2px;
+	overflow:hidden;
+}
+.dtmf_b:hover,.Hz1750:hover{
+	border:2px outset coral;
+}
+#fen_dtmf{
+	position: absolute;
+	top:98%;
+	right:2%;
+	overflow:hidden;
+	background-color: #668;
+	border:inset 10px #aac;
+	text-align:center;
+	
+	color:white;
+	z-index:10000;
+	display:none;
+	
+}
+#fen_dtmf .close_fen{
+		margin:6px;
+}
+.dtmf_l div{
+	width:30px;
+	height:30px;
+	display:inline-block;
+	border:4px outset grey;
+	padding:2px;
+	background-color: #668;
+	cursor:pointer;
+}
+.dtmf_l div:hover{
+ background-color: coral;	
+}
+.dtmf_l div:active{
+ background-color: red;	
+}
+.coral:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+@media  screen and ( max-width: 1200px ), screen and (max-height: 600px) {
+	.para_TX_1{
+		width:100%;
+		height:20%;
+	}
+
+	#para_TX_SSB_FM,#para_TX_CW{
+		height:80%;
+		width:100%;
+		top:20%;
+		left:0%;
+	}
+	#fen_dtmf{
+		position: fixed;
+		top:50%;
+		right:2%;
+		
+	}
+	.reglages_TX_inf, .TX_local{
+		font-size:80%;
+	}
+	#val_Fr_TX{
+		padding-top:10px;
+	}
+}

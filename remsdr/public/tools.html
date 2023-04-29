@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name = "author" content = "André Buhart F1ATB">
+		
+        <title>Tools - Remote SDR</title>
+		<script  src="/jquery/jquery.min.js" ></script>
+		<script  src="JS/jquery.mousewheel.min.js" ></script>
+		<script  src="JS/jquery-ui/jquery-ui.min.js" ></script>
+		<script  src="JS/jquery.ui.touch-punch.min.js" ></script>
+		<script src="/socket.io/socket.io.js"></script>
+		
+		
+		<link href="JS/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="/css/tools.css" rel="stylesheet" type="text/css" />
+		<link href="css/main_TX.css" rel="stylesheet" type="text/css" />
+		
+    </head>
+    <body>
+		<div class="header">
+			<a href="/" class="head_TUX coral"></a>
+			<div class="titre"> Tools - Remote SDR</div>
+			<div class="head_FS coral" onclick='Screen.switch_page();'></div>			
+		</div>
+
+		<div  class="main">
+			<div class="fenetres">
+				<div class="gauche">
+					<ul>
+						<div class="display-table">
+							<div>
+								<div class="TI"></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div  class="T_right TI">IP</div>
+								<div id="RX_IP" class="T_centre RX"></div>
+								<div id="TX_IP" class="T_centre TX"></div>
+								<div id="RT_IP" class="T_centre RT"></div>
+							</div>
+							<div>
+								<div class="TI"><li >CPU Model</li></div>
+								<div class="T_centre RX" id="CPU_RX" ></div>
+								<div class="T_centre TX" id="CPU_TX"></div>
+								<div class="T_centre RT" id = "CPU_RT"></div>
+							</div>
+							<div>
+								<div class="TI"><li >CPU Temperature</li></div>
+								<div class="T_centre RX" id="Temp_RX" ></div>
+								<div class="T_centre TX" id="Temp_TX"></div>
+								<div class="T_centre RT" id = "Temp_RT"></div>
+							</div>
+							
+							<div>
+								<div class="TI"><li >List USB Devices / Liste les periphériques USB</li></div>
+								<div class="actif RX" onclick="Display('Rx','USB');"></div>
+								<div class="actif TX" onclick="Display('Tx','USB');"></div>
+								<div class="actif RT" onclick="Display('Rx','USB');"></div>
+							</div>
+							
+							
+							
+							<div>
+								<div class="TI"><li >Changes Log / Journal des modifications </li></div>
+								<div class="actif RX" onclick="Display('Rx','ChangesLog');"></div>
+								<div class="actif TX" onclick="Display('Tx','ChangesLog');"></div>
+								<div class="actif RT" onclick="Display('Rx','ChangesLog');"></div>
+							</div>
+							<div class="Acces">
+								<div class="TI"><li >Reboot Orange PI or Raspberry PI</li></div>
+								<div class="actif RX" onclick="Display('Rx','RebootOPI');"></div>
+								<div class="actif TX" onclick="Display('Tx','RebootOPI');"></div>
+								<div class="actif RT" onclick="Display('Rx','RebootOPI');"></div>
+							</div>
+							<div class="Acces">
+								<div class="TI"><li >Shutdown Orange PI or Raspberry PI</li></div>
+								<div class="actif RX" onclick="Display('Rx','Shutdown');"></div>
+								<div class="actif TX" onclick="Display('Tx','Shutdown');"></div>
+								<div class="actif RT" onclick="Display('Rx','Shutdown');"></div>
+							</div>
+							<div class="Acces">
+								<div class="TI"><li >Look for updates / Recherche des mises à jour</li></div>
+								<div class="actif RX" onclick="Display('Rx','TestVersion');"></div>
+								<div class="actif TX" onclick="Display('Tx','TestVersion');"></div>
+								<div class="actif RT" onclick="Display('Rx','TestVersion');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>SDR Adalm-Pluto</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div class="TI"><li >Pluto Help / Aide Pluto</li></div>
+								<div class="actif RX" onclick="Display('Rx','PlutoHelp');"></div>
+								<div class="actif TX" onclick="Display('Tx','PlutoHelp');"></div>
+								<div class="actif RT" onclick="Display('Rx','PlutoHelp');"></div>
+							</div>
+							<div>
+								<div class="TI"><li >Pluto Reboot<span style="font-size:9px"> (Needed when SDR RX On or SDR TX On Leds are Blue or Red)</span></li></div>
+								<div class="actif RX" onclick="Display('Rx','PlutoReboot');"></div>
+								<div class="actif TX" onclick="Display('Tx','PlutoReboot');"></div>
+								<div class="actif RT" onclick="Display('Rx','PlutoReboot');"></div>
+							</div>
+							<div>
+								<div class="TI"><li >Pluto Info SDR</li></div>
+								<div class="actif RX" onclick="Display('Rx','PlutoSoapy');"></div>
+								<div class="actif TX" onclick="Display('Tx','PlutoSoapy');"></div>
+								<div class="actif RT" onclick="Display('Rx','PlutoSoapy');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>Hack RF One</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div class="TI"><li >HackRF Info</li></div>
+								<div class="actif RX" onclick="Display('Rx','HackRFinfo');"></div>
+								<div class="actif TX" onclick="Display('Tx','HackRFinfo');"></div>
+								<div class="actif RT" onclick="Display('Rx','HackRFinfo');"></div>
+							</div>
+							<div>
+								<div class="TI"><li >HackRF Info SDR</li></div>
+								<div class="actif RX" onclick="Display('Rx','HackRFSoapy');"></div>
+								<div class="actif TX" onclick="Display('Tx','HackRFSoapy');"></div>
+								<div class="actif RT" onclick="Display('Rx','HackRFSoapy');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>RTL-SDR</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div class="TI"><li >RTL-SDR Info</li></div>
+								<div class="actif RX" onclick="Display('Rx','RTLSDRinfo');"></div>
+								<div class="actif TX" onclick="Display('Tx','RTLSDRinfo');"></div>
+								<div class="actif RT" onclick="Display('Rx','RTLSDRinfo');"></div>
+							</div>
+							<div>
+								<div class="TI"><li >RTL-SDR Info SDR</li></div>
+								<div class="actif RX" onclick="Display('Rx','RTLSDRSoapy');"></div>
+								<div class="actif TX" onclick="Display('Tx','RTLSDRSoapy');"></div>
+								<div class="actif RT" onclick="Display('Rx','RTLSDRSoapy');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>SDR PLAY</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							
+							<div>
+								<div class="TI"><li >SDR PLAY Info SDR</li></div>
+								<div class="actif RX" onclick="Display('Rx','SDRPLAYSoapy');"></div>
+								<div class="actif TX" onclick="Display('Tx','SDRPLAYSoapy');"></div>
+								<div class="actif RT" onclick="Display('Rx','SDRPLAYSoapy');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>SA818 Transmitter</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div class="TI"><li >SA818 Communication test</li></div>
+								<div class="actif RX" onclick="Display('Rx','SA818test');"></div>
+								<div class="actif TX" onclick="Display('Tx','SA818test');"></div>
+								<div class="actif RT" onclick="Display('Rx','SA818test');"></div>
+							</div>
+							
+							<div>
+								<div class="TI"><h4>GPIO</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+						
+							<div>
+								<div class="TI"><li> Test Oscillator on Pin 26 </li></div>
+								<div class="actif RX" onclick="Display('Rx','testpin26');"></div>
+								<div class="actif TX" onclick="Display('Tx','testpin26');"></div>
+								<div class="actif RT" onclick="Display('Rx','testpin26');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>Gpredict - Satellite Tracking</h4></div>
+								<div class="T_centre RX">RX</div>
+								<div class="T_centre TX">TX</div>
+								<div class="T_centre RT">RX / TX</div>
+							</div>
+							<div>
+								<div class="TI"><li >RX doppler</li></div>
+								<div class="actif RX" onclick="Display('Rx','RxGpredict');"></div>
+								<div class="actif_dis TX" ></div>
+								<div class="actif RT" onclick="Display('Rx','RxGpredict');"></div>
+							</div>
+							<div>
+								<div class="TI"><li >TX doppler</li></div>
+								<div class="actif_dis RX" ></div>
+								<div class="actif TX" onclick="Display('Tx','TxGpredict');"></div>
+								<div class="actif RT" onclick="Display('Rx','TxGpredict');"></div>
+							</div>
+							<div>
+								<div class="TI"><h4>Computer</h4></div>
+								<div class="T_centre RX"></div>
+								<div class="T_centre TX"></div>
+								<div class="T_centre RT"></div>
+							</div>
+							<div>
+								<div class="TI"><li> Test Microphone</li></div>
+								<div class="actif RX" onclick="test_micro();"></div>
+								<div class="TX" onclick=""></div>
+								<div class="actif RT" onclick="test_micro();"></div>
+							</div>
+							<div>
+								<div class="TI"><li> Reset Local Storage in browser </li></div>
+								<div class="actif RX" onclick="reset_storage();"></div>
+								<div class="actif TX" onclick="reset_storage();"></div>
+								<div class="actif RT" onclick="reset_storage();"></div>
+							</div>
+							<div>
+								<div class="TI"><li> Test USB/Serial knob and CW keyer </li></div>
+								<div class="actif RX" onclick="test_USBserial();"></div>
+								<div class="actif TX" onclick="test_USBserial();"></div>
+								<div class="actif RT" onclick="test_USBserial();"></div>
+							</div>
+							<div>
+								<div class="TI"><li> Test Omnirig interface </li></div>
+								<div class="actif RX" onclick="Display('Rx','OmniRigTest');"></div>
+								<div class="TX"></div>
+								<div class="actif RT" onclick="Display('Rx','OmniRigTest');"></div>
+							</div>
+							<div>
+								<div class="TI"><li> Open browser console (Chrome or Edge)</li></div>
+								<div class="RX" >Ctrl+Shift I</div>
+								<div class="TX" ></div>
+								<div class="RT" >Ctrl+Shift I</div>
+							</div>
+							
+							
+						</div>
+						
+					</ul>
+				</div>
+				<div class="droite">
+					<div class="info">
+						<div id="info_en"></div>
+						<div id="info_fr"></div>
+					</div>
+					<div id="terminal"></div>
+				</div>
+				
+				
+			</div>	
+		</div>
+		
+		<div id="RX_loader"></div>
+		<div id="TX_loader"></div>
+		
+		
+		
+			
+		<script type="text/javascript" src="JS/tools.js" ></script>
+		<script src="JS/Common.js"></script>	
+		<script type="text/javascript" >
+				if (window.location.protocol=="http:") window.location.assign("https://" +window.location.hostname+ window.location.pathname);
+				var T0_remsdr=Date.now();
+				$( document ).ready(function() {
+					Init_Common_IO();				
+					Init_Page_Tools();								
+				});
+				$(window).resize(function(){
+				  window_resize();
+				  
+				});
+		</script>
+		
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name = "author" content = "André Buhart F1ATB">
+		
+        <title>Settings - Remote SDR</title>
+		<script  src="/jquery/jquery.min.js" ></script>
+		<script src="/socket.io/socket.io.js"></script>
+		
+		
+		<link href="/css/settings.css" rel="stylesheet" type="text/css" />
+		<link href="css/main_TX.css" rel="stylesheet" type="text/css" />
+		
+    </head>
+    <body>
+		<div class="header">
+			<a href="/" class="head_TUX coral"></a>
+			<div class="titre"> Settings - Remote SDR</div>
+			<div class="head_FS coral" onclick='Screen.switch_page();'></div>			
+		</div>
+		<div class="main">
+		<br>
+		<div class="ligne_pseudo">
+			<div ><strong>Your Identifier</strong> <small>(minimum 4 letters, numbers or callsign)</small> :</div>
+			<span><input id="pseudo" type="text" onchange="UserF.update(this)"></span>
+		</div>
+		
+		<div class="LesIP">
+			<h2>RX & TX addresses</h2>
+			<div class="LesIP2">
+				<div class="inIP">
+					<div>RX IP : <span id="protRX"></span>//<span id="IP_RX"></span></div><br>
+					<div>TX IP : <span id="protTX"></span>//<span><input id="IP_TX" type="text" onchange="ProcIP_F.IPTX(this)"></span></div>	
+				</div>
+				<div class="inIP">			
+					<div>CPU : <span id="cpuRX"></span>	</div><br>
+					<div>CPU : <span id="cpuTX"></span>	</div>	
+				</div>
+			</div>
+		</div>
+		
+		<div class="ligne_access">
+			<h2>Update of Parameters</h2>
+			<div>Access Key : <span><input id="AccessKey" type="text" onchange="UserF.AccessKey(this)"></span></div>	
+		    <div class="infAccess">The Access Key, as defined in the file /remsdr/AccessKey.txt, allows to transmit and modify The following parameters.Default value:1234</div>
+		</div>
+		
+		<div id="zone_RX">
+			<h2>RX configuration</h2>
+			
+			<div class="SDRlist">
+				<br>
+				<div><strong>SDR selected : </strong><span id="sdrsRX">None</span></div>
+				<br>
+			</div>
+			<div id="zone_RX_para"></div>
+		</div>
+		<div id="zone_TX">
+			<h2>TX configuration</h2>
+			
+			<div  class="SDRlist">
+				<br>
+				<div><strong>SDR selected : </strong><span id="sdrsTX">None</span></div>
+				<br>
+				
+			</div>
+			<div id="zone_TX_para"></div>
+		</div>
+		<div id="zone_RXTX">
+			<h4 class="titre_fen">RX and TX interfaces</h4>
+			<div>
+				<div>
+					<span>Enable Gpredict (RX port : 8006, TX port : 8007)</span><input type="checkbox" id="Gpredict"  onclick="choixGpredict(this);">
+					<br><small>Need a reboot</small>
+				</div>
+				<div>
+					<span>Enable Omnirig ( port : 8008)</span><input type="checkbox" id="Omnirig"  onclick="choixOmnirig(this);">
+					<br><small>Need a reboot</small>
+				</div>
+				
+			</div>
+		</div>
+		<div id="fen_Log">
+			<h4 class="titre_fen">Log Info</h4>
+			
+			<div id="in_fen_log">
+			</div>
+			
+		</div>
+
+		<script type="text/javascript" src="JS/settings.js" ></script>
+		<script src="JS/Common.js"></script>	
+		<script type="text/javascript" >
+				if (window.location.protocol=="http:") window.location.assign("https://" +window.location.hostname+ window.location.pathname);
+				var T0_remsdr=Date.now();
+				$( document ).ready(function() {			
+					Init_Common_IO();
+					Init_Page_Settings();							
+				});
+				$(window).resize(function(){
+				  window_resize();
+				  
+				});
+		</script>
+		
+    </body>
+</html>

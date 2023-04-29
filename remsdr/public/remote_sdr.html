@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="André Buhart F1ATB" name="author">
+	<title>Remote SDR</title>
+	<script  src="/jquery/jquery.min.js" ></script>
+	</script>
+	<script src="JS/jquery.mousewheel.min.js">
+	</script>
+	<script src="JS/jquery-ui/jquery-ui.min.js">
+	</script>
+	<script src="JS/jquery.ui.touch-punch.min.js">
+	</script>
+	<script src="/socket.io/socket.io.js"></script>
+	<link href="JS/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="css/main_TX.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="header">
+		<div class="head1">
+			<a class="head_TUX coral" href="/"></a>
+			<div class="head_reload coral" onclick='window.stop();window.stop();location.reload();'></div>
+			<button class="head_RXG coral" onclick='$("#fen_GainsRX").css("display","block");'>RX Gains</button> 
+			<button id="head_User" class="coral" onclick='UsersList();'>User(s)</button>
+			<i id="MyPseudo"></i>
+			<div class="Head_RXpilot" onclick="UserF.ForcePilot();">
+				SDR RX Pilot
+				<div id="RXpilotLed"></div>
+			</div>
+			<div class="Head_RXon">
+				SDR RX On
+				<div id="RXonLed"></div>
+				<div id="RXgpredict">Gpredict</div>
+				<div id="Omnirig">Omnirig</div>
+			</div>
+		</div>
+		
+		<div class="titre">
+			Remote SDR
+		</div>
+		<div class="head2">
+			<div class="Head_TXon">
+				SDR TX On
+				<div id="TXonLed"></div>
+				<div id="TXgpredict">
+					Gpredict
+				</div>
+			</div>
+			<button class="head_TXG coral" onclick='$("#fen_GainsTX").css("display","block");'>TX Gains</button> 
+			
+			<button class="head_Log coral" onclick='$("#fen_Log").css("display","block");'>Log</button>
+			<div id="head_gui"  onclick="SDR_RX.gui_full = !SDR_RX.gui_full;window_resize();"></div>
+			<div class="head_knob coral" onclick="listSerial();"></div>
+			<div class="head_FS coral" onclick='Screen.switch_page();'></div>
+		</div>
+	</div>
+	<div class="main">
+	
+		<div id="fen_oscillo">
+			<div id="inOscillo">
+				Input Audio Buffer Size
+			</div>
+			<div class="spectreOscillo">
+				Spectrum
+			</div>
+			
+			<div id="Oscillo">
+				<canvas height="150" id="myOscillo" width="600"></canvas>
+			</div>
+			<div id="Disp_Audio_Left" onclick="sel_disp_audio(this.id);">
+				<canvas height="100" id="myAudio_RX_T" width="600"></canvas>
+			</div>
+			
+			<div id="Disp_Audio_Right" onclick="sel_disp_audio(this.id);">
+				<canvas height="100" id="myAudio_RX_R" width="500"></canvas>
+			</div>
+
+			<div id="zSpectre"></div>
+			<div class="fen_O1">
+				<div class="fen_Iframe">
+					<div id="menu_Iframe"></div>
+					<div id="In_Iframe">
+						<div id="BandPlan">
+							<div id="ListeF"></div>
+							<div id="SaisieF">
+								<div id="Fsaisie"></div><input id="Tsaisie" type="text">
+								<div class="Ssaisie hover" onclick="Ssaisie();">
+									Store
+								</div>
+							</div>
+						</div>
+						<div id="Iframe"></div>
+					</div>
+				</div>
+				<div class="fen_O2">
+					<div id="Smetre" onclick="smetreClick();">
+						<div id="Smetre_fond"></div>
+						<div id="Smetre_label"></div>
+						<div class="SM_noise">
+							dB / min Noise
+						</div>
+						<div id="SM_fleche"></div>
+						<div id="Smetre_RC"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fen_RX_main">
+			<div class="Zone_Fr">
+				<div id="Frequence_AudioRX"></div>
+				<div class="Titre_Freq">
+					RX
+				</div>
+				<div class="clearRX5 hover" onclick="clearRX(5)">
+					~5k~
+				</div>
+				<div class="clearRX10 hover" onclick="clearRX(10)">
+					~10k~
+				</div>
+				<button class="bt_off" id="Scan">Scan</button>
+				<div class="Z_Fr2">
+					<div class="disp_flex">
+						<div class="flex_r">
+							Central Freq. :&nbsp; 
+						</div>
+						<div class="flex_l" id="CentFreq"></div>
+						<div class="flex_r">
+							Bandwidth :&nbsp;
+						</div>
+						<div class="flex_l" id="Bande_RX"></div>
+					</div>
+					<div class="tc100">
+						<div class="tc50">
+							<div id="slider_Frequence_centrale_RX"></div>
+						</div>
+						<div class="tc50">
+							<div id="slider_BW_RX"></div>
+						</div>
+					</div>
+				</div>
+				<div class="Z_Fr3">
+					<div class="disp_flex">
+						<div class="flex_c">
+							SDR Freq.:
+							<div  id="SDR_Freq" title="Central Frequency of RX SDR"></div>
+						</div>
+						<div class="flex_c">
+							Freq. Offset:
+							<div id="offset"></div>
+						</div>
+						<div class="flex_c">
+							Man. correct.:
+							<div  id="Xtal_Error"></div>
+						</div>
+						<div class="flex_c">
+							Auto correction
+							<div>
+								<input id="Auto_Offset_On" type="checkbox">
+								<div id="F_Offset_locked"></div>
+								<span id="F_df"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="Zone_Fr1">
+					<div class="mode">
+						<div id="BandeRX"></div>		
+						<div><div>CW-LSB</div><input id="CW-LSB" name="mode" onclick="choix_mode();" type="radio" value="5"></div>
+						<div><div>CW-USB</div><input id="CW-USB" name="mode" onclick="choix_mode();" type="radio" value="6"></div>
+						<div><div>LSB</div><input id="LSB" name="mode" onclick="choix_mode();" type="radio" value="0"></div>
+						<div><div>USB</div><input checked id="USB" name="mode" onclick="choix_mode();" type="radio" value="1"></div>
+						<div><div>AM</div><input  id="AM" name="mode" onclick="choix_mode();click_squelch();" type="radio" value="2"></div>
+						<div><div>NBFM</div><input  id="NBFM" name="mode" onclick="choix_mode();click_squelch();" type="radio" value="3"></div>
+						<div><div>WBFM</div><input  id="WBFM" name="mode" onclick="choix_mode();click_squelch();" type="radio" value="4"></div>					
+					</div>
+					<div id="fen_squelch">
+						<div>
+							Squelch <span id="val_squelch"></span> dB
+						</div>
+						<div id="slider_squelch"></div>
+					</div>
+				</div>
+			</div>
+			<div class="Zone_Au">
+				<div class="Zone_Au1">
+					<button class="bt_off" id="start-audio">RX Audio Off</button>
+				</div>
+				<div class="Zone_Au2">
+					
+					<div>
+						RX AF Gain
+					</div>
+					<div class="Zone_Au3">
+						<div>
+							While RX
+						</div>
+						<div id="slider_Vol_RX"></div>
+					</div>
+					<div class="Zone_Au4">
+						<div>
+							While TX
+						</div>
+						<div id="slider_Vol_RXTX"></div>
+					</div>
+					<div class="Zone_Au5">
+						<div>
+							Audio Filter <span id="LFARX"></span> <span>Hz</span>
+						</div>
+						<div id="slider_Filtre_RX"></div>
+					</div>
+					<div id="Zone_AuEqualizer">
+						
+						<div  class="bordazur">
+							<div class="bordazur_T" >Main RX Audio </div>
+								<input id="mainRXnofilter" name="mainRXfilter" onchange="Connect_RX_Nodes();" type="radio" value="false" > <label for="mainRXnofilter">Direct - No Filter</label>
+								<input id="mainRXfiltered" name="mainRXfilter" onchange="Connect_RX_Nodes();" type="radio" checked value="true" > <label for="mainRXfiltered">Filtered</label>
+						</div>
+						<div  class="bordazur">
+							<div class="bordazur_T" >Filters </div>
+							<div  class="tc100" id="RXnotch">
+								<div class="tc25">
+									<input id="RXnotchfilter" name="RXnotchfilter" onchange="Connect_RX_Nodes();" type="checkbox"> <label for="RXnotchfilter">Notch </label>
+								</div>
+								<div class="tc60" id="RX_FreqNotch"></div>
+							</div>
+							<div  class="tc100">
+								<div class="tc25">
+									<input id="RXnoisefilter" name="RXnoisefilter" onchange="Connect_RX_Nodes();" type="checkbox"> <label id="labelNoise" for="RXnoisefilter">Noise </label>
+								</div>
+								<div class="tc60" id="RX_LevelNoise"></div>
+							</div>
+						</div>
+						
+						
+						<div id="Zone_AuEqual2">
+							<div class="bordazur">
+								
+								<div id="canvasEqualizerRX"></div>
+								<div class="bordazur_T" >Audio Spectrum</div>
+							</div>
+							<div class="bordazur">
+								<div class="bordazur_T" >Equalizer</div>
+								<div class="RX_Audio_Sliders">
+									Bass Freq.
+									<div id="RX_FreqLS"></div>
+									<div id="RX_FLS"></div>
+								</div>
+								<div class="RX_Audio_Sliders">
+									Bass Level
+									<div id="RX_dB_LS"></div>
+									<div id="RX_dBLS"></div>
+								</div>
+								<div class="RX_Audio_Sliders">
+									Treble Freq.
+									<div id="RX_FreqHS"></div>
+									<div id="RX_FHS"></div>
+								</div>
+								<div class="RX_Audio_Sliders">
+									Treble Level
+									<div id="RX_dB_HS"></div>
+									<div id="RX_dBHS"></div>
+								</div>
+							</div>
+						</div>
+						<div  class="bordazur">
+							<div class="bordazur_T" >Auxiliary RX Audio </div>
+							<input id="auxRXdisabled" name="auxRXfilter" onchange="Connect_RX_Nodes();" type="radio" checked value="0" > <label for="auxRXdisabled">Disabled</label>
+							<input id="auxRXnofilter" name="auxRXfilter" onchange="Connect_RX_Nodes();" type="radio" value="1" > <label for="auxRXnofilter">Direct - No Filter</label>
+							<input id="auxRXfiltered" name="auxRXfilter" onchange="Connect_RX_Nodes();" type="radio"  value="2" > <label for="auxRXfiltered">Filtered</label>
+							<div class="aux_para">
+								<div class="aux_Title">Output destination&nbsp;</div><select class="tc70"  onchange="RX_SinkId(this.value);" id="RXaudioOutput"></select>
+							</div>
+							<div  class="aux_para" >
+								<div class="aux_Title"> Audio Gain&nbsp;</div>
+								<div class="tc70" id="auxRXlevel"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="coral" id="ArrowRXequalizer" onclick="display_RXequalizer();">
+						&#x1F87B;
+				</div>
+			</div>
+		</div>
+		<div id="fen_TX_main">
+				
+			<div class="para_TX">
+				<div id="echelleTX"></div>
+				<div id="val_Fr_TX"></div>
+				<div class="Titre_Freq">
+					TX
+				</div>
+				<div id="TX_RX">
+					<div id="TXvRX" onclick="txvrx();">
+						TX&#x1F87A;RX
+					</div>
+					<div id="RXvTX" onclick="rxvtx();">
+						RX&#x1F87A;TX
+					</div>
+				</div>
+				<div id="Env_Fr_TX" >
+					<div id="sliderFrTX">
+						<div id="slider_Fr_TX"></div>
+					</div>
+				
+					<div class="fs80 Env_FrTX">
+						<div class="flex_c">
+							<input id="TXinvLsbUsb" name="TXinvLsbUsb" onchange="Save_TX_Para();Mode_LSB_NBFM_USB_CW();" type="checkbox"> <label for="txeqrx">Invert LSB/USB</label>
+						</div>
+						<div class="flex_c">
+							<span>Manual correct.</span><span id="val_Of_TX"></span>&nbsp;<span title="Push to steer TX freq. on RX freq."  id="AutoCorect" class="coral"  onmousedown="AutoCorTX(true);" onmouseleave="AutoCorTX(false);"  onmouseup="AutoCorTX(false);" >A</span>
+						</div>
+						<div class="flex_c">
+							<input id="txeqrx" name="txeqrx" onchange="TXeqRX();" type="checkbox"> <label for="txeqrx">Link RX/TX freq.</label>
+						</div>
+					</div>
+					<div class="Env_FrTX fs60">
+						<div class="flex_c" id="Duplex">
+							<label for="full_duplex">Full duplex :</label> <input checked id="full_duplex" name="full_duplex" onchange="Duplex();" type="checkbox">
+						</div>
+						<div class="flex_c" id="BandeTX"></div>
+						<div class="flex_c" style="position:relative;">
+							<div id="Relays"></div>
+							<div id="Relays_info"></div>
+						</div>
+						<div class="flex_c">
+							<label for="relay_auto">Auto :</label> <input id="relay_auto" name="relay_auto" onchange="AutoRelay();" type="checkbox">
+						</div>
+					</div>
+				
+					<div id="visus_TX">
+						<div id="visus_TXt"></div>
+						<div id="visus_TXf"></div>
+					</div>
+				</div>
+			</div>
+			<div class="para_TX_Audio">
+				<div class="para_TX_1">
+					<button class="bt_off" id="start-audioTX">TX Audio Off</button>
+				</div>
+				<div id="para_TX_SSB_FM">
+					<div  id="ArrowAudioF" class="coral" onclick="display_AudioF();">&#x1F87B;</div>
+					<div id="para_Micro">
+						<div class="disp_flex fs80">
+							<div class="flex_l">
+								<input checked id="S_Micro" name="Source" onclick="choice_TX_Source();" type="radio" value="0"> <label for="S_Micro">Micro</label>
+							</div>
+							<div class="flex_l">
+								<div>
+									<input id="S_Sinus1" name="Source" onclick="choice_TX_Source();" type="radio" value="1"> <label for="S_Sinus1">800 Hz Tone</label>
+								</div>
+								<div>
+									<input id="S_Sinus2" name="Source" onclick="choice_TX_Source();" type="radio" value="2"> <label for="S_Sinus2">500 Hz and 1900 Hz Tone</label>
+								</div>
+							</div>
+							<div class="flex_l">
+								<div class="dtmf_b" onclick='$("#fen_dtmf").css("display","block");'><img src="/css/Image/dtmf.JPG" style="width:100%;height:100%;"></div>
+								<div class="Hz1750" onmousedown="dtmf_d(1750);" onmouseup="dtmf_u();">
+									1750 Hz
+								</div>
+							</div>
+							
+						</div>
+						<div class="reglages_TX_inf fs80">
+							<div>
+								Mic Gain&nbsp;
+							</div>
+							<div id="val_Vol_TX"></div>
+							<div>
+								&nbsp;&nbsp;
+							</div><input  id="V_Manuel" name="VolumeTX" onclick="TX_Compress();" type="radio" value="0"> <label for="V_Manuel">Manual</label> <input checked id="V_Auto1" name="VolumeTX" onclick="TX_Compress();" type="radio" value="1"> <label for="V_Auto1">Auto 1</label><input id="V_Auto2" name="VolumeTX" onclick="TX_Compress();" type="radio" value="2"> <label for="V_Auto2">Auto 2</label> 
+						</div>
+						<div class="fs60">
+							<div id="slider_Vol_TX"></div>
+						</div>
+						<div class="TX_local fs60">
+							<span>Local</span>
+							<div id="slider_TX_local"></div>
+						</div>
+					</div>
+
+					
+					
+					<div id="para_TX_SSB_FM2">
+						<div  class="bordazur">
+							<div class="bordazur_T" >TX Audio Source</div>
+							<input id="sourceTXmic" name="TXsource" onchange="choice_TX_Source();" type="radio"  checked value="0" > <label for="sourceTXmic">Microphone</label>
+							<input id="sourceTXaux" name="TXsource" onchange="choice_TX_Source();" type="radio" value="1" > <label for="sourceTXaux">Auxiliary</label>
+							<div class="aux_para">
+								<div class="aux_Title">Aux. Input Source&nbsp;</div><select class="tc70"  onchange="TX_SourceId(this.value);" id="TXaudioInput"></select>
+							</div>
+							<div  class="aux_para" >
+								<div class="aux_Title"> Aux. Audio Gain&nbsp;</div>
+								<div class="tc70" id="auxTXlevel"></div>
+							</div>
+						</div>
+						<div  class="bordazur">
+							<div id="canvasEqualizerTX"></div>
+							<div class="bordazur_T" >Audio Spectrum</div>
+						</div>
+						<div  class="bordazur" id="dispTXequal">
+							<div class="bordazur_T" >Equalizer</div>
+						
+							<div class="TX_Audio_Sliders">
+								Bass Freq.
+								<div id="TX_FreqLS"></div>
+								<div id="TX_FLS"></div>
+							</div>
+							<div class="TX_Audio_Sliders">
+								Bass Level
+								<div id="TX_dB_LS"></div>
+								<div id="TX_dBLS"></div>
+							</div>
+							<div class="TX_Audio_Sliders">
+								Treble Freq.
+								<div id="TX_FreqHS"></div>
+								<div id="TX_FHS"></div>
+							</div>
+							<div class="TX_Audio_Sliders">
+								Treble Level
+								<div id="TX_dB_HS"></div>
+								<div id="TX_dBHS"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="para_TX_CW">
+					<div class="disp_flex">
+						<div class="flex_l"><span class="coral" id="CWkey" onclick="listSerial();">Key</span> </div>
+						<div class="flex_l">Local Audio</div>
+						<div class="flex_r"><span class="coral" id="ArrowCW" onclick="display_CW();">&#x1F87B;</span>
+						</div>
+					</div>
+					<div id="slider_CW_audio_level"></div>
+					<div>
+						Pitch :<span id="CW_pitch"></span> Hz
+					</div>
+					<div id="slider_CW_pitch"></div>
+					<div>
+						<button class="bt_off" id="CW_Zin">0 beat</button> <button class="bt_off" id="CW_Spot">Spot</button><button class="bt_off" id="CW_Mem1">Mem.1</button><button class="bt_off" id="CW_Mem2">Mem.2</button>
+					</div>
+					<div id="para_TX_CW_2">
+						<div>
+							<div class="tc33">
+								<label for="KeyMode">Keyer:</label> <select id="KeyMode" name="KeyMode" onchange="CW_para.Koption = this.value;Save_ParaCW();">
+									<option value="Single">
+										Simple Paddle
+									</option>
+									<option value="Bug">
+										Bug
+									</option>
+									<option value="IambicA">
+										Iambic A
+									</option>
+									<option value="IambicB">
+										Iambic B
+									</option>
+								</select>
+							</div>
+							<div class="tc33">
+								<label for="InvKeys">Invert L/R</label> <input id="InvKeys" name="InvKeys" onchange="Save_ParaCW();;" type="checkbox">
+							</div>
+							<div class="tc33">
+								<label for="bkin_auto">Bk-In Auto:</label> <input id="bkin_auto" name="bkin_auto" onchange="Save_ParaCW();;" type="checkbox">
+							</div>
+						</div>
+						<div>
+							WPM :<span id="CW_wpm"></span>
+						</div>
+						<div id="slider_CW_wpm"></div>
+						<div>
+							Memory 1
+						</div>
+						<textarea id="MemCW1" name="MemCW1" onkeyup="Save_ParaCW();"></textarea>
+						<div>
+							Memory 2
+						</div>
+						<textarea id="MemCW2" name="MemCW2" onkeyup="Save_ParaCW();"></textarea>
+						<div id="can_CW"></div>
+					</div>
+				</div>
+				
+			</div>
+			<div id="fen_dtmf">
+				<h4 class="titre_fen">DTMF</h4>
+				<div class="close_fen" onclick='$("#fen_dtmf").css("display","none");'>
+					X
+				</div>
+				<div class="dtmf_l">
+					<div onmousedown="dtmf_d('1');" onmouseup="dtmf_u();">
+						1
+					</div>
+					<div onmousedown="dtmf_d('2');" onmouseup="dtmf_u();">
+						2
+					</div>
+					<div onmousedown="dtmf_d('3');" onmouseup="dtmf_u();">
+						3
+					</div>
+					<div onmousedown="dtmf_d('A');" onmouseup="dtmf_u();">
+						A
+					</div>
+				</div>
+				<div class="dtmf_l">
+					<div onmousedown="dtmf_d('4');" onmouseup="dtmf_u();">
+						4
+					</div>
+					<div onmousedown="dtmf_d('5');" onmouseup="dtmf_u();">
+						5
+					</div>
+					<div onmousedown="dtmf_d('6');" onmouseup="dtmf_u();">
+						6
+					</div>
+					<div onmousedown="dtmf_d('B');" onmouseup="dtmf_u();">
+						B
+					</div>
+				</div>
+				<div class="dtmf_l">
+					<div onmousedown="dtmf_d('7');" onmouseup="dtmf_u();">
+						7
+					</div>
+					<div onmousedown="dtmf_d('8');" onmouseup="dtmf_u();">
+						8
+					</div>
+					<div onmousedown="dtmf_d('9');" onmouseup="dtmf_u();">
+						9
+					</div>
+					<div onmousedown="dtmf_d('C');" onmouseup="dtmf_u();">
+						C
+					</div>
+				</div>
+				<div class="dtmf_l">
+					<div onmousedown="dtmf_d('*');" onmouseup="dtmf_u();">
+						*
+					</div>
+					<div onmousedown="dtmf_d('0');" onmouseup="dtmf_u();">
+						0
+					</div>
+					<div onmousedown="dtmf_d('#');" onmouseup="dtmf_u();">
+						#
+					</div>
+					<div onmousedown="dtmf_d('D');" onmouseup="dtmf_u();">
+						D
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fen_Log">
+			<h4 class="titre_fen">Log</h4>
+			<div class="close_fen" onclick='$("#fen_Log").css("display","none");'>
+				X
+			</div>
+			<div id="in_fen_log">
+			</div>
+			
+		</div>
+		<div id="fen_GainsRX">
+			<h4 class="titre_fen">RX Gains</h4>
+			<div class="close_fen" onclick='$("#fen_GainsRX").css("display","none");'>
+				X
+			</div>
+			<div id="FGrx1">
+				<div>
+					 <span id="G1NRX"></span> : <span id="G1RX"></span>
+				</div>
+				<div id="slider_G1_RX"></div>
+			</div>
+			<div id="FGrx2">
+				<div>
+					 <span id="G2NRX"></span> : <span id="G2RX"></span>
+				</div>
+				<div id="slider_G2_RX"></div>
+			</div>
+			<div id="FGrx3">
+				<div>
+					 <span id="G3NRX"></span> : <span id="G3RX"></span>
+				</div>
+				<div id="slider_G3_RX"></div>
+			</div>
+		</div>
+		<div id="fen_GainsTX">				
+					<h4 class="titre_fen">TX Gains</h4>					
+					<div class="close_fen" onclick='$("#fen_GainsTX").css("display","none");'>
+						X
+					</div>		
+					<div>						
+						<span id="G1NTX"></span> : <span id="G1TX"></span>
+					</div>				
+					<div id="slider_G1_TX"></div>				
+				<div id="bloc_G2TX">
+					<div>						
+						 <span id="G2NTX"></span> : <span id="G2TX"></span>
+					</div>
+					<div id="slider_G2_TX"></div>
+				</div>
+				
+			</div>
+		<div id="fen_User">
+			<h4 class="titre_fen">User(s)</h4>
+			<div id="list_user"></div>
+			<div class="close_fen" onclick='$("#fen_User").css("display","none");'>
+				X
+			</div>
+		</div>
+
+	
+		
+		<div id="visus" onclick="clickFreq(event);">
+			<div id="spectre" onmousemove="Scan_move(event);" onmouseup="Stop_Move();">
+				<div id="Scan_Zone"></div>
+				<div id="paraSpectre">
+					<div id="slider_Spectre_haut"></div>
+					<div id="slider_Spectre_bas"></div>
+					<div class="parafleche coral" id="paraSpectre_fleche" onclick="visus_click_slider('paraSpectre',true);"></div>
+					<div>
+						<label for="Spectre_average">Average</label><input checked id="Spectre_average" onclick="Save_visus();" type="checkbox">
+						&nbsp;&nbsp;&nbsp;
+						<label >Color</label><span id="Spectre_Line"></span>
+					</div>
+					<div><label >Background Color </label><span id="Spectre_Back"></span></div>
+				</div>
+				<div id="mySpectre"></div>
+				<div id="EchSpectre"></div>
+			</div>
+			<div id="echelle"></div>
+			<div id="echelle_track"></div>
+			<div id="echelle_Label"></div>
+			<div id="waterfall">
+				<div id="waterfall_in">
+					<canvas class="myWaterfall" height="10" id="myWaterfall0" width="10" style="background-color:yellow"></canvas>
+					<canvas class="myWaterfall" height="10" id="myWaterfall1" width="10" style="background-color:blue"></canvas>
+				</div>
+				<div id="paraWater">
+					<div id="slider_Water_haut"></div>
+					<div id="slider_Water_bas"></div>
+					<div><label >Color </label><span id="Water_Color"></span></div>
+					<div class="parafleche coral" id="paraWater_fleche" onclick="visus_click_slider('paraWater',true);"></div>
+				</div>
+			</div>
+			<div id="curseur">
+				<div id="curseur_w"></div>
+				<div class="ligne"></div>
+			</div>
+			<div id="Curseur_TX"></div>
+			<div id="f1atb"></div>
+		</div>
+		<div id="zoom_freq">
+			<div id="zoom_freq_title">
+				Zoom Freq
+			</div>
+			<div id="zoom_freq_in"></div>
+			<div class="close_fen" onclick='CloseZoomFreq();'>
+				X
+			</div>
+		</div>
+	</div>
+	<div id="RX_loader"></div>
+	<div id="TX_loader"></div>
+	<div id="RX_GPIO"></div>
+	<div id="TX_GPIO"></div>
+	<script src="JS/remote_SDR.js"></script> 
+	<script src="JS/remote_RX.js"></script> 
+	<script src="JS/remote_RX_audio.js"></script> 
+	<script src="JS/remote_TX.js"></script> 
+	<script src="JS/remote_TX_audio.js"></script> 
+	<script src="JS/remote_Keys.js"></script>
+	<script src="JS/Common.js"></script>
+	<script src="JS/version.js"></script>	
+	<script>
+	if (window.location.protocol=="http:") window.location.assign("https://" +window.location.hostname+ window.location.pathname);
+		
+	   var T0_remsdr=Date.now();
+	   $( document ).ready(function() {
+		   Init_Common_IO();
+		   Init_Page_SDR();
+		                     
+	   });
+	   $(window).resize(function(){
+		 window_resize();
+		 window_resize_TX();
+	   });
+	</script>
+</body>
+</html>

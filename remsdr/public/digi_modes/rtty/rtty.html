@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name = "author" content = "André Buhart F1ATB">
+        <title>RTTY</title>
+		<script  src="/JS/jquery-3.4.1.min.js" ></script>
+		<script src="/JS/jquery.mousewheel.min.js">
+	</script>
+	<script src="/JS/jquery-ui/jquery-ui.min.js">
+	</script>
+	<script src="/JS/jquery.ui.touch-punch.min.js">
+	</script>
+		<link href="css/rtty.css?t=5" rel="stylesheet" type="text/css" />
+		<link href="/JS/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+	<div class="header">
+		
+		<div class="head_reload coral" onclick='window.stop();window.stop();location.reload();'></div>
+		
+		<div class="titre">
+			RTTY - Remote SDR
+		</div>
+	
+		<div class="head_FS coral" onclick='Screen.switch_page();'></div>
+	</div>
+	<div class="main">
+		<div class="fenetres">
+			<div class="paraRX">
+				<div class="paraRXin">
+					<div id="modes" class="disp_flex"></div>
+					<div id="FreqM"></div>
+					<table  class="Table2">
+						<tr><td style="width:25%" >Filter Q</td><td><div id="slider_Q" ></div></td></tr>
+						<tr><td style="width:25%" ><label for="RXnotchfilter">Notch </label><input id="RXnotchfilter" name="RXnotchfilter" onchange="RTTY_RXnode.ConnectSource();Plot_FFT.Freq_Response();" type="checkbox"> </td>
+							<td ><div id="RX_FreqNotch"></div></td></tr>
+						<tr><td style="width:25%" >Notch Q</td><td><div  id="RX_Qnotch"></div></td></tr>
+					</table>
+					<div  class="detector">
+						<div class="flex_l">Detector</div>
+						<div class="flex_c">Amplitude :<input  onchange="DetectAmp.DetectOn();" type="checkbox" checked></div>
+						<div class="flex_c">Phase :<input  onchange="DetectPhase.DetectOn()" type="checkbox" checked></div>
+					</div>
+				</div>
+			</div>
+			<div id="waterFFT" onclick="clickFreq(event);">	</div>
+			<div id="XY">
+				<canvas height="150" id="XY0" width="150"></canvas>
+				<canvas height="150" id="XY1" width="150"></canvas>
+			</div>
+			
+		
+		</div>
+		
+		
+		<div id="RXzoneAmp" class="RXzone">
+			<div class="RXbzone">
+				<div class="Dtitle">Amplitude</div>
+				<input type="button" value="Letter" onclick="DetectAmp.shift=false;">
+				<input type="button" value="Symb."  onclick="DetectAmp.shift=true;">
+				<input type="button" value="Clear"  onclick="DetectAmp.texte='';DetectAmp.CarPrint();">
+				
+				<input type="checkbox" id="OutMesAmp" checked onclick="DetectAmp.DispOut=!DetectAmp.DispOut;">
+				<div >TX Txt Out</div>
+				<input type="checkbox"  onclick="DetectAmp.Squelch=!DetectAmp.Squelch;">
+				<div >Squelch</div>
+				<div class="dispPlot">
+					<input type="checkbox"  checked onclick="DetectAmp.DispPlot();">
+					<div >Time Display</div>
+				</div>
+			</div>
+			<div class="text_env_A"><div id="textAmp" class="Text"></div></div>
+			<div id="displayAmp" class="Display"></div>
+		</div>
+		
+		<div id="RXzonePhi" class="RXzone">
+			<div class="RXbzone">
+				<div class="Dtitle">Phase</div>
+				<input type="button" value="Letter" onclick="DetectPhase.shift=false;">
+				<input type="button" value="Symb."  onclick="DetectPhase.shift=true;">
+				<input type="button" value="Clear"  onclick="DetectPhase.texte='';DetectPhase.CarPrint();">
+				<input type="checkbox" id="OutMesPhi" checked onclick="DetectPhase.DispOut=!DetectPhase.DispOut;">
+				<div >TX Txt Out</div>
+				<input type="checkbox"  onclick="DetectPhase.Squelch=!DetectPhase.Squelch;">
+				<div >Squelch</div>
+				<div class="dispPlot">
+					<input type="checkbox"  checked onclick="DetectPhase.DispPlot();">
+					<div >Time Display</div>
+				</div>
+			</div>
+			<div class="text_env_P"><div id="textPhi" class="Text"></div ></div >
+			<div id="displayPhi" class="Display"></div>
+		</div>
+			
+		
+		<div class="inZone">
+		   
+			<div class="flex_c"><label for="MyCall"> My Call (%m): </label><input type="text" id="MyCall" onchange="Save_RTTY();" ></div>
+			<div class="flex_c"><label for="MyName"> My Name (%s): </label><input type="text" id="MyName" onchange="Save_RTTY();" ></div>
+			<div class="flex_c"><input type="button" value="Clear" onclick="RTTY_TX.Clear();"></div>
+			<div class="flex_c"><label for="HisCall"> His Call (%c): </label><input type="text" id="HisCall" onchange="Save_RTTY();" ></div>
+			<div class="flex_c"><label for="HisName"> His Name (%n): </label><input type="text" id="HisName" onchange="Save_RTTY();" ></div>
+			<div class="flex_c"><label for="HisRST"> His RST (%r): </label>
+				<select  id="HisRST" >
+					<option>599</option>
+					<option>579</option>
+					<option>569</option>
+					<option>559</option>
+					<option>449</option>
+					<option>448</option>
+					<option>338</option>
+					<option>337</option>
+					<option>336</option>
+					<option>225</option>
+					<option>111</option>
+				</select>
+			</div>
+		</div>
+		<div class="ZoneTX">
+			<div class="Visu_TX">
+				<textarea   id="VisuTX"></textarea>
+				<div id="macrosText" contentEditable="true" ></div>
+				<div class="macrosTextB" onclick="InitPage.MacClose();">X</div>
+			</div>
+			<div class="Mac_TX">
+				<div class="mac_title">
+					<div ><input type="button" id="TXon" value="TX Off" onclick="RTTY_TX.TXon();" class="bt_off"></div>
+					<div class="mac_titre"><div >Macros</div></div>
+				</div>
+				<div id="macros"></div>
+			</div>
+			
+		</div>
+		
+		
+	</div>
+	
+	<button type="button" id="startbutton" onclick="RTTY_RXnode.start();">Start</button> 
+	
+	<script  src="JS/BaudotCode.js" ></script>
+	<script  src="JS/rtty.js" ></script>
+	<script  src="JS/subDetectAmp.js?t=1" ></script>
+	<script  src="JS/subDetectPhase.js?t=1" ></script>
+	<script  src="JS/subPlots.js" ></script>
+	<script  src="JS/subTX.js" ></script>
+	<script  src="/JS/Common.js"></script>	
+	<script>
+	   $( document ).ready(function() {
+		   Init_RTTY_RX();                  
+	   });
+	   $(window).resize(function(){
+		 window_resize();
+	   });
+	</script>
+    </body>
+</html>

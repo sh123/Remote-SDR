@@ -1,0 +1,222 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+	margin:0px;
+	padding: 0px;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:16px;
+    color:white;
+    background-color:black;
+	overflow:hidden;
+}
+a {
+	text-decoration: none;
+	color: black;
+	background: none;
+}
+a:visited {
+	color: black;
+}
+a:active {
+	color: grey;
+}
+a:hover {
+	text-decoration: underline;
+}
+.header {
+    background-color: #444;
+    color: white;
+    position: absolute;
+    width:100%;
+    top:0px;
+    z-index: 2000;    
+	height:5%;
+	text-align:center;
+	overflow:hidden;
+	border: outset 3px grey;
+}
+.titre{
+	font-size:150%;
+	font-weight: bold;
+	position:absolute;
+	bottom:10%;
+	width:100%;
+}
+
+
+
+
+.head_FS{
+	position: absolute;
+    bottom:10%;
+	height:30px;
+	left:96%;
+    z-index: 5000;    
+	border: outset 2px grey;
+	padding:4px;
+	width:30px;
+	background-color: #88f;
+	background-image:url(/css/Image/Carre.png);
+	background-size: contain;	
+}
+
+.head_TUX{
+	position: absolute;
+    bottom:5%;
+	width:7%;
+	height:95%;
+	left:3px;
+    z-index: 5100; 
+    background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+	background-color:lightblue;;
+}
+
+
+
+.main{
+	position: absolute;
+	top:5%;
+	width:100%;
+	overflow:hidden;
+	bottom:0px;
+}
+.fenetres{
+	position: absolute;
+	top:0%;
+	width:100%;
+	overflow:hidden;
+	bottom:0px;
+	
+}
+.gauche{
+	position: absolute;
+	top:0%;
+	width:50%;
+	bottom:0px;
+	border: grey outset 3px;
+	background-color:#bbb;
+	color:black;
+	padding:3px;
+	overflow:auto;
+	line-height: 1.6;
+}
+.display-table {
+    display: table; 
+    border-spacing: 5px;
+	width:100%;
+}
+.display-table > div { 
+    display: table-row;	
+}
+
+.TI,.RX,.TX, .RT,.CP{
+    display: table-cell;
+    padding: 5px;
+}
+
+
+.droite{
+	position: absolute;
+	top:0%;
+	left:50%;
+	width:50%;
+	height:100%;
+	border: grey inset 3px;
+	padding:3px;
+	
+	
+}
+.info {
+	height:20%;	
+	position: absolute;
+	top:0%;
+
+	width:100%;
+	overflow:auto;
+}
+#info_en,#info_fr{
+	display:table-cell;
+	font-style: italic;
+	color:lightgreen;
+	padding:5px;
+	width:50%;
+}
+#info_fr{
+	color:yellow;
+}
+#terminal{
+	padding:5px;
+	height:80%;	
+	position: absolute;
+	top:20%;
+    overflow:auto;
+	width:100%;
+}
+.curseur{
+	cursor:pointer;
+}
+
+.coral:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+.actif,.actif_dis{
+	background-color:lightBlue;
+	border:3px outset DeepskyBlue;
+	text-align:center;
+	background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.actif:hover,.actifR:hover,.actifT:hover{
+	background-color: Coral;
+	cursor:pointer;
+}
+.inactif{
+	color:grey;
+	text-align:center;
+	border:3px outset grey;
+	background-image:url(/css/Image/TUX_100px.png);
+	background-size: contain;
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.inactif:hover{
+	cursor:pointer;
+}
+.T_centre{
+	text-align:center;
+	font-weight:bold;
+}
+.T_right{
+	text-align:right;
+	font-weight:bold;
+}
+#RX_loader,#TX_loader{
+	display:none;
+}
+.Acces{
+		display:none;
+		width:100%;
+}
+
+@media  screen and ( max-width: 1000px ) {
+	.gauche{
+			width:100%;
+			height:60%;
+	}
+	.droite{
+			width:100%;
+			top:60%;
+			left:0%;
+			height:40%;
+	}
+	
+}
+

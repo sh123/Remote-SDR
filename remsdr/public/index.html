@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name = "author" content = "André Buhart F1ATB">
+		
+        <title>Remote SDR</title>
+		<script  src="JS/jquery-3.4.1.min.js" ></script>
+		<script  src="JS/version.js" ></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<link href="css/index.css" rel="stylesheet" type="text/css" />
+		
+		
+    </head>
+    <body>
+	<canvas id="canvas_tux"></canvas>
+	<div class="remote"><a href="remote_sdr.html" >Remote SDR</a></div>
+	<div class="Smenu">
+		<div class="settings"><a href="/settings.html" >Settings</a></div>
+		<div class="tools"><a href="/tools.html" >Tools</a></div>
+	</div>
+	<div id="version">xxx</div>
+	<div id="popup_new_version"></div>
+	<script  src="JS/Common.js" ></script>
+		<script  >
+		if (window.location.protocol=="http:") window.location.assign("https://" +window.location.hostname+ window.location.pathname);
+		        //Version Check
+				var date_Last_Check="";
+				$(window).resize(function(){
+				  window_resize();
+				});
+				function window_resize(){
+					var f= window.innerHeight/50;
+					$("body").css("font-size",f);
+				}
+				$( document ).ready(function() {
+				    var V = "Remote SDR V"+Version+"<br><a href='https://f1atb.fr' target='_blank'>F1ATB</a> ";
+					$("#version").html(V);
+					window_resize();
+					//Local Storage
+					var the_date = new Date();
+					var date_current = the_date.getMonth(); 
+					if (localStorage.getItem("date_Last_Check")!=null){ // We have an old storage 
+						date_Last_Check =  JSON.parse(localStorage.getItem("date_Last_Check"));					
+					}
+					if (date_Last_Check != date_current  ) { // Check once every Month 
+						
+						var loader='<iframe src="https://f1atb.fr/mes_pages/VersionRemSdr/check_version.php?version=' + Version + '" frameBorder="0" style="width:100%;"></iframe>'
+						$("#popup_new_version").html(loader);
+					}
+					localStorage.setItem("date_Last_Check", JSON.stringify(date_current));
+				});
+			   function RXsocketConnected() {
+					
+				}
+				function RXsocketDisConnected() {
+					RXsocket.connect();
+				}
+			
+			
+		</script>
+		<script  type="module" src="/3D/index_m.js" ></script>
+    </body>
+</html>
