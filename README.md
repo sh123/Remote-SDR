@@ -5,7 +5,7 @@ Slightly modified version of F1ATB Remote-SDR adopted for RPI4 64 bit usage and 
 ```
 git clone https://github.com/sh123/Remote-SDR
 cd Remote-SDR
-sudo chmod 755 /etc/systemd/system/remsdr.service
+sudo install -m 755 remsdr.service /etc/systemd/system
 sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
 sudo apt install nodejs npm gnuradio
