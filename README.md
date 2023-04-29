@@ -6,15 +6,9 @@ cd Remote-SDR
 sudo chmod 755 /etc/systemd/system/remsdr.service
 sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
-sudo apt install nodejs
+sudo apt install nodejs npm
 cd /remsdr
 sudo npm install
-sudo npm install html
-sudo npm install https
-sudo npm install express
-sudo npm install jquery
-sudo npm install socket.io
-sudo npm install fs
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
 sudo sytemctl start remsdr.service
 ```
