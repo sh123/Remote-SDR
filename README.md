@@ -1,4 +1,6 @@
 # Remote-SDR
+Slightly modified version of F1ATB Remote-SDR adopted for RPI4 64 bit usage and disabled GPIO controls.
+
 ## Installation
 ```
 git clone https://github.com/sh123/Remote-SDR
@@ -7,6 +9,7 @@ sudo chmod 755 /etc/systemd/system/remsdr.service
 sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
 sudo apt install nodejs npm
+sudo apt install gnuradio
 cd /remsdr
 sudo npm install
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
