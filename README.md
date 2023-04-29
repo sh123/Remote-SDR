@@ -8,14 +8,15 @@ sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
 sudo apt install nodejs
 cd /remsdr
-npm install
-npm install html
-npm install https
-npm install express
-npm install jquery
-npm install socket.io
-npm install fs
-openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
+sudo npm install
+sudo npm install html
+sudo npm install https
+sudo npm install express
+sudo npm install jquery
+sudo npm install socket.io
+sudo npm install fs
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
+sudo sytemctl start remsdr.service
 ```
 ## Release history
 Remote-SDR remotely controls a SDR receiver and a SDR transmitter from a web browser. Pre-configured for the QO-100 Es'Hail 2 satellite transponder. Can be used for any NBFM, SSB or CW Radio from 1MHz up to 6 GHz. It can works in full duplex with Adalm-Pluto SDR, HackRF One, RTL-SDR, RSP1, RSP1A or SA818.
