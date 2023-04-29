@@ -1,0 +1,14 @@
+[Unit]
+Description=Remote SDR QO-100 service
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /remsdr/Radio_Server.js
+Restart=on-failure
+RestartSec=10
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
