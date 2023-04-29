@@ -1,5 +1,5 @@
 # Remote-SDR
-Slightly modified version of F1ATB Remote-SDR adopted for RPI4 64 bit usage and disabled GPIO controls.
+Slightly modified version of F1ATB Remote-SDR adopted for RPI4 64 bit usage and disabled GPIO controls for manual installation.
 
 ## Installation
 ```
