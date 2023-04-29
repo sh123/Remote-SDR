@@ -8,11 +8,11 @@ cd Remote-SDR
 sudo chmod 755 /etc/systemd/system/remsdr.service
 sudo cp -r remsdr /
 sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
-sudo apt install nodejs npm
-sudo apt install gnuradio
+sudo apt install nodejs npm gnuradio
 cd /remsdr
 sudo npm install
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
+sudo node Radio_Server.js
 sudo sytemctl start remsdr.service
 ```
 ## Release history
