@@ -7,8 +7,8 @@ git clone https://github.com/sh123/Remote-SDR
 cd Remote-SDR
 sudo install -m 755 remsdr.service /etc/systemd/system
 sudo cp -r remsdr /
-sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
 sudo apt install nodejs npm gnuradio
+# sudo curl -sL https://deb.nodesource.com/setup_16.x | bash -
 cd /remsdr
 sudo npm install
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout selfsigned.key -out selfsigned.crt
